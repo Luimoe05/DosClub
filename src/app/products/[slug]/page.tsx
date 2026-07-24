@@ -98,7 +98,7 @@ export default async function ProductPage(props: PageProps<"/products/[slug]">) 
             </Link>
           </div>
 
-          <div className="mt-8 border border-border bg-surface p-4 text-xs leading-relaxed text-muted">
+          <div className="mt-8 rounded-md border border-border bg-surface p-4 text-xs leading-relaxed text-muted">
             <strong className="text-foreground">Research use only.</strong> This
             product is sold strictly for laboratory research and is{" "}
             <span className="text-accent">not for human consumption</span>. By

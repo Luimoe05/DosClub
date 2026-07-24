@@ -39,7 +39,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 border border-border bg-background/60 p-4 text-xs leading-relaxed text-muted">
+        <div className="mt-12 rounded-md border border-border bg-background/60 p-4 text-xs leading-relaxed text-muted">
           <strong className="text-foreground">Research use only.</strong> The
           products sold on this site are intended solely for laboratory research
           and are{" "}

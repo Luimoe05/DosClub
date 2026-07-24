@@ -39,10 +39,10 @@ export default function CartPage() {
 
       <div className="grid gap-8 lg:grid-cols-[1fr_340px]">
         {/* Items */}
-        <ul className="divide-y divide-border border border-border bg-surface">
+        <ul className="divide-y divide-border overflow-hidden rounded-lg border border-border bg-surface">
           {items.map((item) => (
             <li key={item.slug} className="flex gap-4 p-4">
-              <div className="flex h-20 w-20 shrink-0 flex-col items-center justify-center border border-border bg-background">
+              <div className="flex h-20 w-20 shrink-0 flex-col items-center justify-center rounded-md border border-border bg-background">
                 <span className="text-lg font-semibold text-foreground tabular-nums">
                   {item.sizeMg ?? "—"}
                 </span>
@@ -67,7 +67,7 @@ export default function CartPage() {
                 </div>
 
                 <div className="mt-auto flex items-center justify-between pt-3">
-                  <div className="flex items-center border border-border">
+                  <div className="flex items-center overflow-hidden rounded-md border border-border">
                     <button
                       type="button"
                       onClick={() => setQuantity(item.slug, item.quantity - 1)}
@@ -102,7 +102,7 @@ export default function CartPage() {
         </ul>
 
         {/* Summary */}
-        <aside className="h-fit border border-border bg-surface p-6">
+        <aside className="h-fit rounded-lg border border-border bg-surface p-6">
           <h2 className="label text-foreground">ORDER SUMMARY</h2>
           <dl className="mt-5 space-y-3 text-sm">
             <Row label="Subtotal" value={formatPrice(subtotalCents)} />

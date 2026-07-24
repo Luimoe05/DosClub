@@ -7,7 +7,7 @@ export function ProductCard({ product }: { product: StoreProduct }) {
   return (
     <Link
       href={`/products/${product.slug}`}
-      className="group flex flex-col justify-between gap-6 border border-border bg-surface p-5 transition hover:border-border-strong hover:bg-surface-2"
+      className="group flex flex-col justify-between gap-6 rounded-lg border border-border bg-surface p-5 transition hover:border-border-strong hover:bg-surface-2"
     >
       <div>
         <div className="flex items-center justify-between">

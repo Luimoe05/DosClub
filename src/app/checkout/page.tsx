@@ -33,7 +33,7 @@ export default function CheckoutPage() {
       <div className="grid gap-8 lg:grid-cols-[1fr_340px]">
         {/* Shipping form */}
         <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-          <fieldset className="border border-border bg-surface p-6">
+          <fieldset className="rounded-lg border border-border bg-surface p-6">
             <legend className="label px-2 text-foreground">
               SHIPPING DETAILS
             </legend>
@@ -48,7 +48,7 @@ export default function CheckoutPage() {
             </div>
           </fieldset>
 
-          <div className="border border-border bg-surface p-4 text-xs leading-relaxed text-muted">
+          <div className="rounded-md border border-border bg-surface p-4 text-xs leading-relaxed text-muted">
             Payment integration is not yet wired up. This is a preview of the
             checkout flow — orders will persist to the database once payments are
             connected.
@@ -63,7 +63,7 @@ export default function CheckoutPage() {
         </form>
 
         {/* Summary */}
-        <aside className="h-fit border border-border bg-surface p-6">
+        <aside className="h-fit rounded-lg border border-border bg-surface p-6">
           <h2 className="label text-foreground">YOUR ORDER</h2>
           <ul className="mt-4 space-y-3 text-sm">
             {items.map((item) => (

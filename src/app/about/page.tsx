@@ -36,7 +36,7 @@ export default function AboutPage() {
         ))}
       </div>
 
-      <div className="mt-12 border border-border bg-surface p-5 text-sm leading-relaxed text-muted">
+      <div className="mt-12 rounded-md border border-border bg-surface p-5 text-sm leading-relaxed text-muted">
         <strong className="text-foreground">Research use only.</strong> All
         products are intended solely for laboratory research and are{" "}
         <span className="text-accent">not for human consumption</span>, in vivo
