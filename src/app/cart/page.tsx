@@ -11,15 +11,18 @@ export default function CartPage() {
   if (count === 0) {
     return (
       <div className="mx-auto flex max-w-2xl flex-col items-center px-6 py-28 text-center">
-        <h1 className="text-3xl font-semibold text-white">Your cart is empty</h1>
+        <span className="label text-muted">CART · EMPTY</span>
+        <h1 className="mt-4 text-3xl font-semibold tracking-tight text-foreground">
+          Your cart is empty
+        </h1>
         <p className="mt-3 text-muted">
           Browse the catalog to add research compounds.
         </p>
         <Link
           href="/products"
-          className="mt-8 inline-flex items-center justify-center rounded-full bg-accent px-7 py-3 text-sm font-semibold text-white transition hover:bg-accent-bright"
+          className="label mt-8 inline-flex items-center justify-center rounded-md bg-accent px-6 py-3 text-accent-contrast transition hover:bg-accent-bright"
         >
-          Shop the catalog
+          SHOP CATALOG
         </Link>
       </div>
     );
@@ -29,50 +32,55 @@ export default function CartPage() {
   const totalCents = subtotalCents + shippingCents;
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-16">
-      <h1 className="mb-10 text-4xl font-semibold text-white">Your cart</h1>
+    <div className="mx-auto max-w-6xl px-6 py-14">
+      <span className="label text-accent">CART</span>
+      <h1 className="mb-10 mt-3 text-4xl font-semibold tracking-tight text-foreground">
+        Your cart
+      </h1>
 
-      <div className="grid gap-10 lg:grid-cols-[1fr_360px]">
+      <div className="grid gap-8 lg:grid-cols-[1fr_340px]">
         {/* Items */}
-        <ul className="divide-y divide-border rounded-2xl border border-border bg-surface">
+        <ul className="divide-y divide-border border border-border bg-surface">
           {items.map((item) => (
             <li key={item.slug} className="flex gap-4 p-4">
-              <div className="h-24 w-24 shrink-0 overflow-hidden rounded-xl border border-border bg-background">
+              <div className="h-24 w-24 shrink-0 overflow-hidden border border-border bg-background">
                 <VialVisual sizeMg={item.sizeMg} className="h-full w-full" />
               </div>
               <div className="flex flex-1 flex-col">
                 <div className="flex items-start justify-between gap-4">
                   <Link
                     href={`/products/${item.slug}`}
-                    className="font-semibold text-white transition hover:text-accent"
+                    className="font-semibold text-foreground transition hover:text-accent"
                   >
                     {item.name}
                     {item.sizeMg != null && (
-                      <span className="text-muted"> · {item.sizeMg}mg</span>
+                      <span className="label ml-2 text-muted">
+                        {item.sizeMg}MG
+                      </span>
                     )}
                   </Link>
-                  <span className="font-semibold text-white">
+                  <span className="font-semibold text-foreground tabular-nums">
                     {formatPrice(item.priceCents * item.quantity)}
                   </span>
                 </div>
 
                 <div className="mt-auto flex items-center justify-between pt-3">
-                  <div className="flex items-center rounded-full border border-border">
+                  <div className="flex items-center border border-border">
                     <button
                       type="button"
                       onClick={() => setQuantity(item.slug, item.quantity - 1)}
-                      className="px-3 py-1 text-muted transition hover:text-white"
+                      className="px-3 py-1 text-muted transition hover:text-foreground"
                       aria-label="Decrease quantity"
                     >
                       −
                     </button>
-                    <span className="w-8 text-center text-sm text-white">
+                    <span className="w-8 text-center text-sm text-foreground tabular-nums">
                       {item.quantity}
                     </span>
                     <button
                       type="button"
                       onClick={() => setQuantity(item.slug, item.quantity + 1)}
-                      className="px-3 py-1 text-muted transition hover:text-white"
+                      className="px-3 py-1 text-muted transition hover:text-foreground"
                       aria-label="Increase quantity"
                     >
                       +
@@ -81,9 +89,9 @@ export default function CartPage() {
                   <button
                     type="button"
                     onClick={() => remove(item.slug)}
-                    className="text-sm text-muted transition hover:text-accent"
+                    className="label text-muted transition hover:text-accent"
                   >
-                    Remove
+                    REMOVE
                   </button>
                 </div>
               </div>
@@ -92,8 +100,8 @@ export default function CartPage() {
         </ul>
 
         {/* Summary */}
-        <aside className="h-fit rounded-2xl border border-border bg-surface p-6">
-          <h2 className="text-lg font-semibold text-white">Order summary</h2>
+        <aside className="h-fit border border-border bg-surface p-6">
+          <h2 className="label text-foreground">ORDER SUMMARY</h2>
           <dl className="mt-5 space-y-3 text-sm">
             <Row label="Subtotal" value={formatPrice(subtotalCents)} />
             <Row
@@ -106,15 +114,15 @@ export default function CartPage() {
           </dl>
           <Link
             href="/checkout"
-            className="mt-6 flex w-full items-center justify-center rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition hover:bg-accent-bright"
+            className="label mt-6 flex w-full items-center justify-center rounded-md bg-accent px-6 py-3 text-accent-contrast transition hover:bg-accent-bright"
           >
-            Checkout
+            CHECKOUT
           </Link>
           <Link
             href="/products"
-            className="mt-3 flex w-full items-center justify-center text-sm text-muted transition hover:text-white"
+            className="label mt-3 flex w-full items-center justify-center text-muted transition hover:text-foreground"
           >
-            Continue shopping
+            CONTINUE SHOPPING
           </Link>
         </aside>
       </div>
@@ -133,10 +141,12 @@ function Row({
 }) {
   return (
     <div className="flex items-center justify-between">
-      <dt className={bold ? "font-semibold text-white" : "text-muted"}>
+      <dt className={bold ? "font-semibold text-foreground" : "text-muted"}>
         {label}
       </dt>
-      <dd className={bold ? "text-base font-semibold text-white" : "text-white"}>
+      <dd
+        className={`tabular-nums ${bold ? "text-base font-semibold text-foreground" : "text-foreground"}`}
+      >
         {value}
       </dd>
     </div>

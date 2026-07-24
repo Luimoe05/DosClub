@@ -5,12 +5,13 @@ import { VialVisual } from "@/components/VialVisual";
 import type { StoreProduct } from "@/lib/sample-products";
 
 export function ProductCard({ product }: { product: StoreProduct }) {
+  const inStock = product.stock > 0;
   return (
     <Link
       href={`/products/${product.slug}`}
-      className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-surface transition hover:border-accent/60 hover:shadow-[0_0_40px_-12px_var(--accent)]"
+      className="group flex flex-col overflow-hidden border border-border bg-surface transition hover:border-border-strong"
     >
-      <div className="relative aspect-square bg-gradient-to-b from-surface-2 to-background">
+      <div className="relative aspect-square border-b border-border bg-background">
         {product.imageUrl ? (
           <Image
             src={product.imageUrl}
@@ -22,28 +23,31 @@ export function ProductCard({ product }: { product: StoreProduct }) {
         ) : (
           <VialVisual sizeMg={product.sizeMg} className="h-full w-full" />
         )}
-        {product.categoryName && (
-          <span className="absolute left-3 top-3 rounded-full border border-border bg-background/70 px-3 py-1 text-[10px] tracking-widest text-muted uppercase backdrop-blur">
-            {product.categoryName}
-          </span>
-        )}
+        <span className="label absolute left-3 top-3 flex items-center gap-1.5 text-muted">
+          <span
+            className={`h-1.5 w-1.5 rounded-full ${inStock ? "bg-ok" : "bg-muted"}`}
+          />
+          {inStock ? "IN STOCK" : "SOLD OUT"}
+        </span>
       </div>
 
-      <div className="flex flex-1 flex-col gap-1 p-5">
-        <h3 className="text-lg font-semibold text-white group-hover:text-accent-bright">
-          {product.name}
-        </h3>
-        <div className="flex items-center gap-2 text-xs text-muted">
-          {product.purity && <span>{product.purity}</span>}
-          {product.purity && product.sizeMg != null && <span>·</span>}
-          {product.sizeMg != null && <span>{product.sizeMg}mg</span>}
+      <div className="flex flex-1 flex-col gap-3 p-4">
+        <div>
+          <h3 className="text-base font-semibold tracking-tight text-foreground">
+            {product.name}
+          </h3>
+          <p className="label mt-1 text-muted">
+            {[product.purity, product.sizeMg != null ? `${product.sizeMg}MG` : null]
+              .filter(Boolean)
+              .join("  ·  ")}
+          </p>
         </div>
-        <div className="mt-auto flex items-center justify-between pt-4">
-          <span className="text-base font-semibold text-white">
+        <div className="mt-auto flex items-center justify-between border-t border-border pt-3">
+          <span className="text-sm font-semibold text-foreground tabular-nums">
             {formatPrice(product.priceCents)}
           </span>
-          <span className="text-sm text-accent opacity-0 transition group-hover:opacity-100">
-            View →
+          <span className="label text-muted transition group-hover:text-accent">
+            VIEW →
           </span>
         </div>
       </div>

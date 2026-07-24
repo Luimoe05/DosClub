@@ -8,12 +8,12 @@ export function CartBadge() {
   return (
     <Link
       href="/cart"
-      className="relative inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm text-foreground transition hover:border-accent hover:text-white"
+      className="label relative inline-flex items-center gap-2 rounded-md border border-border px-3 py-2 text-muted transition hover:border-border-strong hover:text-foreground"
       aria-label={`Cart, ${count} item${count === 1 ? "" : "s"}`}
     >
       <svg
         viewBox="0 0 24 24"
-        className="h-4 w-4"
+        className="h-3.5 w-3.5"
         fill="none"
         stroke="currentColor"
         strokeWidth="1.8"
@@ -26,9 +26,9 @@ export function CartBadge() {
         <circle cx="9" cy="20" r="1.4" fill="currentColor" stroke="none" />
         <circle cx="18" cy="20" r="1.4" fill="currentColor" stroke="none" />
       </svg>
-      <span className="hidden sm:inline">Cart</span>
+      <span className="hidden sm:inline">CART</span>
       {count > 0 && (
-        <span className="absolute -right-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-accent px-1 text-[11px] font-semibold text-white">
+        <span className="ml-0.5 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-semibold text-accent-contrast">
           {count}
         </span>
       )}

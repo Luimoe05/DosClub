@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-/** The DC lens mark — white outer almond with a hot-magenta inner lens. */
+/** The DC lens mark — foreground outer almond with a magenta inner lens. */
 export function LogoMark({ className = "" }: { className?: string }) {
   return (
     <svg
@@ -9,10 +9,10 @@ export function LogoMark({ className = "" }: { className?: string }) {
       role="img"
       aria-label="Dos Club Research"
     >
-      {/* outer white lens */}
+      {/* outer lens (ink / paper-aware) */}
       <path
         d="M60 8 C 90 34 90 86 60 112 C 30 86 30 34 60 8 Z"
-        fill="#ffffff"
+        fill="var(--foreground)"
       />
       {/* seam that hints the D | C split */}
       <rect x="58.5" y="14" width="3" height="92" fill="var(--background)" />
@@ -34,16 +34,12 @@ export function Logo({
   compact?: boolean;
 }) {
   return (
-    <Link href="/" className={`flex items-center gap-3 ${className}`}>
-      <LogoMark className="h-9 w-9 shrink-0" />
+    <Link href="/" className={`group flex items-center gap-2.5 ${className}`}>
+      <LogoMark className="h-7 w-7 shrink-0" />
       {!compact && (
-        <span className="flex flex-col leading-none">
-          <span className="text-sm font-semibold tracking-brand text-white">
-            DOS CLUB
-          </span>
-          <span className="text-[10px] tracking-brand text-accent">
-            RESEARCH
-          </span>
+        <span className="label leading-none text-foreground">
+          DOS CLUB{" "}
+          <span className="text-accent">RESEARCH</span>
         </span>
       )}
     </Link>

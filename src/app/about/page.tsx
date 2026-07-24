@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { LogoMark } from "@/components/Logo";
+import { Frame } from "@/components/Frame";
 
 export const metadata: Metadata = {
   title: "About",
@@ -8,32 +9,34 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="mx-auto max-w-3xl px-6 py-20">
-      <LogoMark className="h-12 w-12" />
-      <h1 className="mt-6 text-4xl font-semibold text-white">Our standards</h1>
+    <div className="mx-auto max-w-3xl px-6 py-16">
+      <LogoMark className="h-10 w-10" />
+      <span className="label mt-6 block text-accent">OUR STANDARDS</span>
+      <h1 className="mt-3 text-4xl font-semibold tracking-tight text-foreground">
+        Purity, verified.
+      </h1>
       <p className="mt-6 text-lg leading-relaxed text-muted">
         Dos Club Research exists for one reason: to supply researchers with
         compounds they can trust. Every product is lab-verified for identity and
         purity, and every batch ships with a certificate of analysis.
       </p>
 
-      <div className="mt-12 grid gap-6 sm:grid-cols-3">
+      <div className="mt-12 grid gap-4 sm:grid-cols-3">
         {[
-          { k: "≥99%", v: "Verified purity on every batch" },
-          { k: "COA", v: "Certificate of analysis included" },
-          { k: "24h", v: "Fast, discreet dispatch" },
+          { k: "≥99%", v: "VERIFIED PURITY ON EVERY BATCH" },
+          { k: "COA", v: "CERTIFICATE OF ANALYSIS INCLUDED" },
+          { k: "24H", v: "FAST, DISCREET DISPATCH" },
         ].map((s) => (
-          <div
-            key={s.v}
-            className="rounded-2xl border border-border bg-surface p-6"
-          >
-            <div className="text-2xl font-semibold text-accent">{s.k}</div>
-            <p className="mt-2 text-sm text-muted">{s.v}</p>
-          </div>
+          <Frame key={s.v} className="p-6">
+            <div className="text-2xl font-semibold text-accent tabular-nums">
+              {s.k}
+            </div>
+            <p className="label mt-3 leading-relaxed text-muted">{s.v}</p>
+          </Frame>
         ))}
       </div>
 
-      <div className="mt-12 rounded-lg border border-border bg-surface p-5 text-sm leading-relaxed text-muted">
+      <div className="mt-12 border border-border bg-surface p-5 text-sm leading-relaxed text-muted">
         <strong className="text-foreground">Research use only.</strong> All
         products are intended solely for laboratory research and are{" "}
         <span className="text-accent">not for human consumption</span>, in vivo

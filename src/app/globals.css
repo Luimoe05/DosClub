@@ -1,16 +1,38 @@
 @import "tailwindcss";
 
-/* ── DOS CLUB RESEARCH — dark luxe design tokens ──────────────── */
+/* Manual dark mode via a `.dark` class on <html> (set by the no-flash script). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ── DOS CLUB RESEARCH — editorial theme tokens ───────────────── */
+/* Light (default): warm paper. Dark: near-black. Accent stays magenta. */
 :root {
-  --background: #0a0a0c;
-  --surface: #121214;
-  --surface-2: #1a1a1e;
-  --border: #26262c;
-  --foreground: #f4f4f6;
-  --muted: #9a9aa4;
-  --accent: #ec0a7d; /* hot magenta */
-  --accent-bright: #ff2d95;
-  --accent-deep: #a3005a;
+  color-scheme: light;
+  --background: #edeae3; /* warm paper */
+  --surface: #f4f2ec; /* raised paper */
+  --surface-2: #e7e3d9;
+  --border: #d7d2c6; /* hairline warm gray */
+  --border-strong: #c3bdae;
+  --foreground: #1a1a17; /* near-black ink */
+  --muted: #6f6b60; /* warm gray text */
+  --accent: #d10a72; /* magenta, deepened for light bg */
+  --accent-bright: #ec0a7d;
+  --accent-contrast: #ffffff; /* text on accent fills */
+  --ok: #2f6f4f; /* status dot (in stock) */
+}
+
+.dark {
+  color-scheme: dark;
+  --background: #0c0c0e;
+  --surface: #141416;
+  --surface-2: #1c1c20;
+  --border: #262629;
+  --border-strong: #38383d;
+  --foreground: #f3f2ee;
+  --muted: #9a968c;
+  --accent: #ff2d95;
+  --accent-bright: #ff56ab;
+  --accent-contrast: #10040a;
+  --ok: #4ade80;
 }
 
 @theme inline {
@@ -18,17 +40,23 @@
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
   --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-accent: var(--accent);
   --color-accent-bright: var(--accent-bright);
-  --color-accent-deep: var(--accent-deep);
+  --color-accent-contrast: var(--accent-contrast);
+  --color-ok: var(--ok);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 * {
   border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -38,26 +66,73 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Brand wordmark treatment */
-.tracking-brand {
-  letter-spacing: 0.32em;
+/* Monospace UPPERCASE label — the workhorse small type. */
+.label {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.6875rem; /* 11px */
+  line-height: 1;
 }
 
-/* Subtle top glow used on hero / sections */
+/* Thin-bordered monospace tag pill. */
+.pill {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.02em;
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  padding: 0.2rem 0.5rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* Blueprint frame: hairline border with a small + tick at each corner. */
+.frame {
+  position: relative;
+  border: 1px solid var(--border);
+}
+.frame::before,
+.frame::after,
+.frame > .frame-tick-l,
+.frame > .frame-tick-r {
+  content: "";
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  background-image: linear-gradient(var(--border-strong), var(--border-strong)),
+    linear-gradient(var(--border-strong), var(--border-strong));
+  background-size: 9px 1px, 1px 9px;
+  background-position: center, center;
+  background-repeat: no-repeat;
+}
+.frame::before {
+  top: -5px;
+  left: -5px;
+}
+.frame::after {
+  top: -5px;
+  right: -5px;
+}
+.frame > .frame-tick-l {
+  bottom: -5px;
+  left: -5px;
+}
+.frame > .frame-tick-r {
+  bottom: -5px;
+  right: -5px;
+}
+
+/* Faint accent glow for feature moments. */
 .glow-accent {
   background: radial-gradient(
     60% 80% at 50% 0%,
-    color-mix(in oklab, var(--accent) 22%, transparent) 0%,
+    color-mix(in oklab, var(--accent) 16%, transparent) 0%,
     transparent 70%
   );
 }
 
-/* Pink-to-black panel gradient (mirrors the packaging) */
-.gradient-panel {
-  background: linear-gradient(160deg, #101013 0%, #101013 45%, var(--accent-deep) 140%);
-}
-
 ::selection {
   background: var(--accent);
-  color: #fff;
+  color: var(--accent-contrast);
 }

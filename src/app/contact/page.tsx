@@ -7,9 +7,11 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="mx-auto max-w-xl px-6 py-20">
-      <p className="text-xs tracking-widest text-accent uppercase">Contact</p>
-      <h1 className="mt-2 text-4xl font-semibold text-white">Get in touch</h1>
+    <div className="mx-auto max-w-xl px-6 py-16">
+      <span className="label text-accent">CONTACT</span>
+      <h1 className="mt-3 text-4xl font-semibold tracking-tight text-foreground">
+        Get in touch
+      </h1>
       <p className="mt-3 text-muted">
         Questions about products, orders, or wholesale? Send us a message.
       </p>
@@ -23,19 +25,19 @@ export default function ContactPage() {
           placeholder="you@lab.com"
         />
         <div>
-          <label className="mb-1.5 block text-sm text-foreground">Message</label>
+          <label className="label mb-1.5 block text-muted">MESSAGE</label>
           <textarea
             name="message"
             rows={5}
             placeholder="How can we help?"
-            className="w-full rounded-xl border border-border bg-surface px-4 py-3 text-sm text-white outline-none transition placeholder:text-muted focus:border-accent"
+            className="w-full rounded-md border border-border bg-surface px-4 py-3 text-sm text-foreground outline-none transition placeholder:text-muted focus:border-accent"
           />
         </div>
         <button
           type="submit"
-          className="inline-flex items-center justify-center rounded-full bg-accent px-7 py-3 text-sm font-semibold text-white transition hover:bg-accent-bright"
+          className="label inline-flex items-center justify-center rounded-md bg-accent px-6 py-3 text-accent-contrast transition hover:bg-accent-bright"
         >
-          Send message
+          SEND MESSAGE
         </button>
       </form>
     </div>
@@ -55,12 +57,12 @@ function Field({
 }) {
   return (
     <div>
-      <label className="mb-1.5 block text-sm text-foreground">{label}</label>
+      <label className="label mb-1.5 block text-muted">{label}</label>
       <input
         name={name}
         type={type}
         placeholder={placeholder}
-        className="w-full rounded-xl border border-border bg-surface px-4 py-3 text-sm text-white outline-none transition placeholder:text-muted focus:border-accent"
+        className="w-full rounded-md border border-border bg-surface px-4 py-3 text-sm text-foreground outline-none transition placeholder:text-muted focus:border-accent"
       />
     </div>
   );

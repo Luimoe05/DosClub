@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { getProductBySlug } from "@/lib/products";
 import { formatPrice } from "@/lib/format";
 import { VialVisual } from "@/components/VialVisual";
+import { Frame } from "@/components/Frame";
 import { AddToCartButton } from "@/components/cart/AddToCartButton";
 
 export async function generateMetadata(
@@ -27,68 +28,68 @@ export default async function ProductPage(props: PageProps<"/products/[slug]">) 
   const inStock = product.stock > 0;
 
   return (
-    <div className="mx-auto max-w-7xl px-6 py-10">
-      <nav className="mb-8 text-sm text-muted">
-        <Link href="/products" className="transition hover:text-white">
-          ← Back to catalog
+    <div className="mx-auto max-w-6xl px-6 py-10">
+      <nav className="label mb-8">
+        <Link
+          href="/products"
+          className="text-muted transition hover:text-foreground"
+        >
+          ← BACK TO CATALOG
         </Link>
       </nav>
 
-      <div className="grid gap-12 md:grid-cols-2">
+      <div className="grid gap-10 md:grid-cols-2">
         {/* Media */}
-        <div className="gradient-panel relative flex aspect-square items-center justify-center overflow-hidden rounded-3xl border border-border">
-          {product.imageUrl ? (
-            <Image
-              src={product.imageUrl}
-              alt={product.name}
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
-              priority
-            />
-          ) : (
-            <VialVisual sizeMg={product.sizeMg} className="h-full w-full scale-110" />
-          )}
-        </div>
+        <Frame className="glow-accent">
+          <div className="relative flex aspect-square items-center justify-center overflow-hidden">
+            {product.imageUrl ? (
+              <Image
+                src={product.imageUrl}
+                alt={product.name}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
+                priority
+              />
+            ) : (
+              <VialVisual
+                sizeMg={product.sizeMg}
+                className="h-full w-full scale-110"
+              />
+            )}
+          </div>
+        </Frame>
 
         {/* Details */}
-        <div>
-          {product.categoryName && (
-            <p className="text-xs tracking-widest text-accent uppercase">
-              {product.categoryName}
-            </p>
-          )}
-          <h1 className="mt-2 text-4xl font-semibold text-white">
+        <div className="flex flex-col">
+          <span className="label flex items-center gap-2 text-muted">
+            <span
+              className={`h-1.5 w-1.5 rounded-full ${inStock ? "bg-ok" : "bg-muted"}`}
+            />
+            {product.categoryName ?? "RESEARCH COMPOUND"}
+            {" · "}
+            {inStock ? "IN STOCK" : "SOLD OUT"}
+          </span>
+
+          <h1 className="mt-4 text-4xl font-semibold tracking-tight text-foreground">
             {product.name}
           </h1>
 
-          <div className="mt-4 flex items-center gap-3">
-            <span className="text-3xl font-semibold text-white">
-              {formatPrice(product.priceCents)}
-            </span>
-            <span
-              className={`rounded-full px-3 py-1 text-xs font-medium ${
-                inStock
-                  ? "bg-accent/15 text-accent"
-                  : "bg-surface-2 text-muted"
-              }`}
-            >
-              {inStock ? "In stock" : "Out of stock"}
-            </span>
+          <div className="mt-4 text-3xl font-semibold text-foreground tabular-nums">
+            {formatPrice(product.priceCents)}
           </div>
 
           <p className="mt-6 leading-relaxed text-muted">{product.description}</p>
 
-          {/* Spec table */}
-          <dl className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border">
-            <Spec label="Purity" value={product.purity ?? "—"} />
-            <Spec
-              label="Size"
-              value={product.sizeMg != null ? `${product.sizeMg}mg` : "—"}
-            />
-            <Spec label="Form" value={product.form ?? "—"} />
-            <Spec label="Use" value="Laboratory research" />
-          </dl>
+          {/* Spec pills */}
+          <div className="mt-6 flex flex-wrap gap-2">
+            {product.purity && <span className="pill">PURITY {product.purity}</span>}
+            {product.sizeMg != null && (
+              <span className="pill">{product.sizeMg}MG VIAL</span>
+            )}
+            {product.form && <span className="pill">{product.form.toUpperCase()}</span>}
+            <span className="pill">LABORATORY RESEARCH</span>
+          </div>
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <AddToCartButton
@@ -102,13 +103,13 @@ export default async function ProductPage(props: PageProps<"/products/[slug]">) 
             />
             <Link
               href="/cart"
-              className="text-sm text-muted transition hover:text-white"
+              className="label text-muted transition hover:text-foreground"
             >
-              View cart →
+              VIEW CART →
             </Link>
           </div>
 
-          <div className="mt-8 rounded-lg border border-border bg-surface p-4 text-xs leading-relaxed text-muted">
+          <div className="mt-8 border border-border bg-surface p-4 text-xs leading-relaxed text-muted">
             <strong className="text-foreground">Research use only.</strong> This
             product is sold strictly for laboratory research and is{" "}
             <span className="text-accent">not for human consumption</span>. By
@@ -116,17 +117,6 @@ export default async function ProductPage(props: PageProps<"/products/[slug]">) 
           </div>
         </div>
       </div>
-    </div>
-  );
-}
-
-function Spec({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="bg-surface px-4 py-3">
-      <dt className="text-[11px] tracking-widest text-muted uppercase">
-        {label}
-      </dt>
-      <dd className="mt-1 text-sm text-white">{value}</dd>
     </div>
   );
 }

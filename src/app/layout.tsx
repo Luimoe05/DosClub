@@ -4,6 +4,7 @@ import "./globals.css";
 import { CartProvider } from "@/components/cart/CartProvider";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { ThemeScript } from "@/components/theme/ThemeScript";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,10 +33,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <ThemeScript />
+      </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        <div className="border-b border-accent/20 bg-accent-deep/25 py-1.5 text-center text-[11px] tracking-widest text-foreground/80 uppercase">
+        <div className="label border-b border-border bg-surface py-2 text-center text-muted">
           Research use only · Not for human consumption
         </div>
         <CartProvider>

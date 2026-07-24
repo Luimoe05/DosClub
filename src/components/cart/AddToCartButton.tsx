@@ -21,9 +21,9 @@ export function AddToCartButton({
         setAdded(true);
         window.setTimeout(() => setAdded(false), 1400);
       }}
-      className={`inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition hover:bg-accent-bright active:scale-[0.98] ${className}`}
+      className={`label inline-flex items-center justify-center gap-2 rounded-md bg-accent px-6 py-3 text-accent-contrast transition hover:bg-accent-bright active:scale-[0.98] ${className}`}
     >
-      {added ? "Added ✓" : "Add to cart"}
+      {added ? "ADDED ✓" : "ADD TO CART"}
     </button>
   );
 }

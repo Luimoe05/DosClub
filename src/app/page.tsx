@@ -2,7 +2,9 @@ import Link from "next/link";
 import { getFeaturedProducts } from "@/lib/products";
 import { ProductCard } from "@/components/ProductCard";
 import { VialVisual } from "@/components/VialVisual";
-import { LogoMark } from "@/components/Logo";
+import { Frame } from "@/components/Frame";
+import { LiveClock } from "@/components/LiveClock";
+import { SectionHeader } from "@/components/SectionHeader";
 
 export const revalidate = 60;
 
@@ -10,111 +12,112 @@ export default async function Home() {
   const featured = await getFeaturedProducts(4);
 
   return (
-    <>
+    <div className="mx-auto max-w-6xl px-6">
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden">
-        <div className="glow-accent pointer-events-none absolute inset-x-0 top-0 h-[520px]" />
-        <div className="mx-auto grid max-w-7xl items-center gap-10 px-6 py-20 md:grid-cols-2 md:py-28">
-          <div>
-            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs tracking-widest text-muted uppercase">
-              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-              Third-party tested · ≥99% purity
-            </span>
-            <h1 className="mt-6 text-5xl font-semibold leading-[1.05] tracking-tight text-white md:text-6xl">
-              Research-grade
-              <br />
-              <span className="text-accent">compounds.</span>
-              <br />
-              Uncompromised purity.
-            </h1>
-            <p className="mt-6 max-w-md text-lg leading-relaxed text-muted">
-              Dos Club Research supplies high-purity peptides and research
-              compounds, lab-verified and shipped fast. Strictly for laboratory
-              research — not for human consumption.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Link
-                href="/products"
-                className="inline-flex items-center justify-center rounded-full bg-accent px-7 py-3 text-sm font-semibold text-white transition hover:bg-accent-bright"
-              >
-                Shop the catalog
-              </Link>
-              <Link
-                href="/about"
-                className="inline-flex items-center justify-center rounded-full border border-border px-7 py-3 text-sm font-semibold text-foreground transition hover:border-accent hover:text-white"
-              >
-                Our standards
-              </Link>
-            </div>
-          </div>
-
-          <div className="relative">
-            <div className="gradient-panel mx-auto flex aspect-[4/5] max-w-sm items-center justify-center rounded-3xl border border-border">
-              <VialVisual sizeMg={30} className="h-full w-full scale-125" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Trust strip ──────────────────────────────────────── */}
-      <section className="border-y border-border bg-surface">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 divide-x divide-border md:grid-cols-4">
-          {[
-            { k: "≥99%", v: "Verified purity" },
-            { k: "COA", v: "Every batch tested" },
-            { k: "24h", v: "Order dispatch" },
-            { k: "100%", v: "Discreet shipping" },
-          ].map((s) => (
-            <div key={s.v} className="px-6 py-8 text-center">
-              <div className="text-2xl font-semibold text-white">{s.k}</div>
-              <div className="mt-1 text-xs tracking-widest text-muted uppercase">
-                {s.v}
+      <section className="pt-14 pb-6">
+        <Frame className="glow-accent overflow-hidden">
+          <div className="grid gap-8 p-8 md:grid-cols-[1.1fr_0.9fr] md:p-12">
+            <div className="flex flex-col justify-center">
+              <span className="label flex items-center gap-2 text-muted">
+                <span className="h-2 w-2 rounded-full bg-ok" />
+                Lab verified · ≥99% purity
+              </span>
+              <h1 className="mt-5 text-5xl font-semibold leading-[1.02] tracking-tight text-foreground md:text-6xl">
+                Research-grade
+                <br />
+                <span className="text-accent">compounds.</span>
+              </h1>
+              <p className="mt-5 max-w-md leading-relaxed text-muted">
+                Dos Club Research supplies high-purity peptides and research
+                compounds — lab-verified, batch-tested, shipped fast. Strictly
+                for laboratory research; not for human consumption.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link
+                  href="/products"
+                  className="label inline-flex items-center justify-center rounded-md bg-accent px-6 py-3 text-accent-contrast transition hover:bg-accent-bright"
+                >
+                  SHOP CATALOG
+                </Link>
+                <Link
+                  href="/about"
+                  className="label inline-flex items-center justify-center rounded-md border border-border-strong px-6 py-3 text-foreground transition hover:bg-surface-2"
+                >
+                  OUR STANDARDS ↗
+                </Link>
               </div>
             </div>
-          ))}
+
+            <div className="flex items-center justify-center">
+              <div className="flex aspect-[4/5] w-full max-w-xs items-center justify-center border border-border bg-background">
+                <VialVisual sizeMg={30} className="h-full w-full scale-110" />
+              </div>
+            </div>
+          </div>
+        </Frame>
+
+        {/* meta row */}
+        <div className="mt-3 flex items-center justify-between">
+          <span className="label text-muted">
+            RESEARCH GRADE · BATCH TESTED
+          </span>
+          <LiveClock prefix="SHIPS WORLDWIDE / " />
         </div>
       </section>
 
-      {/* ── Featured products ────────────────────────────────── */}
-      <section className="mx-auto max-w-7xl px-6 py-20">
-        <div className="mb-10 flex items-end justify-between">
-          <div>
-            <h2 className="text-3xl font-semibold text-white">Featured compounds</h2>
-            <p className="mt-2 text-muted">Our most requested research products.</p>
-          </div>
-          <Link
-            href="/products"
-            className="hidden text-sm text-accent transition hover:text-accent-bright sm:inline"
-          >
-            View all →
-          </Link>
-        </div>
-        <div className="grid grid-cols-2 gap-5 lg:grid-cols-4">
+      {/* ── Featured ─────────────────────────────────────────── */}
+      <section className="py-14">
+        <SectionHeader label="FEATURED" index={1} total={3} href="/products" />
+        <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
           {featured.map((p) => (
             <ProductCard key={p.id} product={p} />
           ))}
         </div>
       </section>
 
-      {/* ── Brand band ───────────────────────────────────────── */}
-      <section className="border-t border-border">
-        <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 px-6 py-20 text-center">
-          <LogoMark className="h-14 w-14" />
-          <h2 className="max-w-2xl text-3xl font-semibold text-white">
-            Purity you can verify. A standard you can trust.
-          </h2>
-          <p className="max-w-xl text-muted">
-            Every batch ships with a certificate of analysis. No guesswork, no
-            compromise — just research-grade material done right.
-          </p>
-          <Link
-            href="/products"
-            className="mt-2 inline-flex items-center justify-center rounded-full bg-accent px-7 py-3 text-sm font-semibold text-white transition hover:bg-accent-bright"
-          >
-            Browse products
-          </Link>
-        </div>
+      {/* ── Standards ────────────────────────────────────────── */}
+      <section className="py-14">
+        <SectionHeader label="STANDARDS" index={2} total={3} />
+        <Frame className="mt-8">
+          <div className="grid grid-cols-2 divide-x divide-y divide-border md:grid-cols-4 md:divide-y-0">
+            {[
+              { k: "≥99%", v: "VERIFIED PURITY" },
+              { k: "COA", v: "EVERY BATCH TESTED" },
+              { k: "24H", v: "ORDER DISPATCH" },
+              { k: "100%", v: "DISCREET SHIPPING" },
+            ].map((s) => (
+              <div key={s.v} className="px-6 py-10 text-center">
+                <div className="text-3xl font-semibold tracking-tight text-foreground tabular-nums">
+                  {s.k}
+                </div>
+                <div className="label mt-2 text-muted">{s.v}</div>
+              </div>
+            ))}
+          </div>
+        </Frame>
       </section>
-    </>
+
+      {/* ── CTA ──────────────────────────────────────────────── */}
+      <section className="py-14">
+        <SectionHeader label="ORDER" index={3} total={3} />
+        <Frame className="mt-8">
+          <div className="flex flex-col items-center gap-5 px-6 py-16 text-center">
+            <h2 className="max-w-xl text-3xl font-semibold tracking-tight text-foreground">
+              Purity you can verify. A standard you can trust.
+            </h2>
+            <p className="max-w-lg text-muted">
+              Every batch ships with a certificate of analysis. No guesswork —
+              just research-grade material done right.
+            </p>
+            <Link
+              href="/products"
+              className="label mt-2 inline-flex items-center justify-center rounded-md bg-accent px-6 py-3 text-accent-contrast transition hover:bg-accent-bright"
+            >
+              BROWSE PRODUCTS
+            </Link>
+          </div>
+        </Frame>
+      </section>
+    </div>
   );
 }
