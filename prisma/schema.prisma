@@ -1,0 +1,127 @@
+// DosClub — peptide store schema
+// Docs: https://pris.ly/d/prisma-schema
+// DATABASE_URL is loaded from .env via prisma.config.ts
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ── Users & auth ──────────────────────────────────────────────
+
+enum Role {
+  CUSTOMER
+  ADMIN
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String?
+  passwordHash String
+  role         Role     @default(CUSTOMER)
+  orders       Order[]
+  cart         Cart?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+// ── Catalog ───────────────────────────────────────────────────
+
+model Category {
+  id       String    @id @default(cuid())
+  name     String    @unique
+  slug     String    @unique
+  products Product[]
+}
+
+model Product {
+  id          String      @id @default(cuid())
+  slug        String      @unique
+  name        String
+  description String      @db.Text
+  // Peptide-specific specs
+  purity      String? // e.g. "≥99%"
+  sizeMg      Int? // vial size in mg
+  form        String? // e.g. "Lyophilized powder"
+  // Commerce
+  priceCents  Int
+  imageUrl    String?
+  stock       Int         @default(0)
+  active      Boolean     @default(true)
+  category    Category?   @relation(fields: [categoryId], references: [id])
+  categoryId  String?
+  cartItems   CartItem[]
+  orderItems  OrderItem[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+// ── Cart ──────────────────────────────────────────────────────
+
+model Cart {
+  id        String     @id @default(cuid())
+  user      User       @relation(fields: [userId], references: [id])
+  userId    String     @unique
+  items     CartItem[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model CartItem {
+  id        String  @id @default(cuid())
+  cart      Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  cartId    String
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+  quantity  Int     @default(1)
+
+  @@unique([cartId, productId])
+}
+
+// ── Orders ────────────────────────────────────────────────────
+
+enum OrderStatus {
+  PENDING
+  PAID
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+model Order {
+  id             String      @id @default(cuid())
+  user           User        @relation(fields: [userId], references: [id])
+  userId         String
+  status         OrderStatus @default(PENDING)
+  items          OrderItem[]
+  subtotalCents  Int
+  shippingCents  Int         @default(0)
+  totalCents     Int
+  // Shipping address (denormalized snapshot)
+  shipName       String
+  shipLine1      String
+  shipLine2      String?
+  shipCity       String
+  shipState      String
+  shipPostalCode String
+  shipCountry    String      @default("US")
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+}
+
+model OrderItem {
+  id           String  @id @default(cuid())
+  order        Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId      String
+  product      Product @relation(fields: [productId], references: [id])
+  productId    String
+  // Snapshot of product at purchase time
+  nameSnapshot String
+  priceCents   Int
+  quantity     Int
+}

@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+/* ── DOS CLUB RESEARCH — dark luxe design tokens ──────────────── */
+:root {
+  --background: #0a0a0c;
+  --surface: #121214;
+  --surface-2: #1a1a1e;
+  --border: #26262c;
+  --foreground: #f4f4f6;
+  --muted: #9a9aa4;
+  --accent: #ec0a7d; /* hot magenta */
+  --accent-bright: #ff2d95;
+  --accent-deep: #a3005a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-bright: var(--accent-bright);
+  --color-accent-deep: var(--accent-deep);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+* {
+  border-color: var(--border);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Brand wordmark treatment */
+.tracking-brand {
+  letter-spacing: 0.32em;
+}
+
+/* Subtle top glow used on hero / sections */
+.glow-accent {
+  background: radial-gradient(
+    60% 80% at 50% 0%,
+    color-mix(in oklab, var(--accent) 22%, transparent) 0%,
+    transparent 70%
+  );
+}
+
+/* Pink-to-black panel gradient (mirrors the packaging) */
+.gradient-panel {
+  background: linear-gradient(160deg, #101013 0%, #101013 45%, var(--accent-deep) 140%);
+}
+
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
