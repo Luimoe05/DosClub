@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useCart } from "@/components/cart/CartProvider";
 import { formatPrice } from "@/lib/format";
-import { VialVisual } from "@/components/VialVisual";
 
 export default function CartPage() {
   const { items, subtotalCents, setQuantity, remove, count } = useCart();
@@ -20,7 +19,7 @@ export default function CartPage() {
         </p>
         <Link
           href="/products"
-          className="label mt-8 inline-flex items-center justify-center rounded-md bg-accent px-6 py-3 text-accent-contrast transition hover:bg-accent-bright"
+          className="label mt-8 inline-flex items-center justify-center rounded-md bg-foreground px-6 py-3 text-background transition hover:opacity-90"
         >
           SHOP CATALOG
         </Link>
@@ -43,8 +42,11 @@ export default function CartPage() {
         <ul className="divide-y divide-border border border-border bg-surface">
           {items.map((item) => (
             <li key={item.slug} className="flex gap-4 p-4">
-              <div className="h-24 w-24 shrink-0 overflow-hidden border border-border bg-background">
-                <VialVisual sizeMg={item.sizeMg} className="h-full w-full" />
+              <div className="flex h-20 w-20 shrink-0 flex-col items-center justify-center border border-border bg-background">
+                <span className="text-lg font-semibold text-foreground tabular-nums">
+                  {item.sizeMg ?? "—"}
+                </span>
+                <span className="label text-muted">MG</span>
               </div>
               <div className="flex flex-1 flex-col">
                 <div className="flex items-start justify-between gap-4">
@@ -114,7 +116,7 @@ export default function CartPage() {
           </dl>
           <Link
             href="/checkout"
-            className="label mt-6 flex w-full items-center justify-center rounded-md bg-accent px-6 py-3 text-accent-contrast transition hover:bg-accent-bright"
+            className="label mt-6 flex w-full items-center justify-center rounded-md bg-foreground px-6 py-3 text-background transition hover:opacity-90"
           >
             CHECKOUT
           </Link>

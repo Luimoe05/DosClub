@@ -12,12 +12,12 @@
   --surface-2: #e7e3d9;
   --border: #d7d2c6; /* hairline warm gray */
   --border-strong: #c3bdae;
-  --foreground: #1a1a17; /* near-black ink */
-  --muted: #6f6b60; /* warm gray text */
-  --accent: #d10a72; /* magenta, deepened for light bg */
-  --accent-bright: #ec0a7d;
+  --foreground: #1c1b19; /* near-black ink */
+  --muted: #726e63; /* warm gray text */
+  --accent: #a83c64; /* muted raspberry — restrained */
+  --accent-bright: #bd4a75;
   --accent-contrast: #ffffff; /* text on accent fills */
-  --ok: #2f6f4f; /* status dot (in stock) */
+  --ok: #3a6f52; /* status dot (in stock) */
 }
 
 .dark {
@@ -27,12 +27,12 @@
   --surface-2: #1c1c20;
   --border: #262629;
   --border-strong: #38383d;
-  --foreground: #f3f2ee;
-  --muted: #9a968c;
-  --accent: #ff2d95;
-  --accent-bright: #ff56ab;
-  --accent-contrast: #10040a;
-  --ok: #4ade80;
+  --foreground: #f2f1ed;
+  --muted: #918d84;
+  --accent: #d97ba3; /* soft rose in dark */
+  --accent-bright: #e492b4;
+  --accent-contrast: #16060e;
+  --ok: #57b989;
 }
 
 @theme inline {
@@ -123,13 +123,43 @@ body {
   right: -5px;
 }
 
-/* Faint accent glow for feature moments. */
+/* Very faint accent glow for feature moments. */
 .glow-accent {
   background: radial-gradient(
-    60% 80% at 50% 0%,
-    color-mix(in oklab, var(--accent) 16%, transparent) 0%,
+    55% 75% at 50% 0%,
+    color-mix(in oklab, var(--accent) 8%, transparent) 0%,
     transparent 70%
   );
+}
+
+/* Reusable buttons: primary is ink (professional), ghost is outlined. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 6px;
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.6875rem;
+  line-height: 1;
+  transition: all 0.15s ease;
+}
+.btn-primary {
+  background: var(--foreground);
+  color: var(--background);
+}
+.btn-primary:hover {
+  opacity: 0.88;
+}
+.btn-ghost {
+  border: 1px solid var(--border-strong);
+  color: var(--foreground);
+}
+.btn-ghost:hover {
+  background: var(--surface-2);
 }
 
 ::selection {

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
-      <LogoMark className="h-10 w-10" />
+      <LogoMark className="h-11 w-14" />
       <span className="label mt-6 block text-accent">OUR STANDARDS</span>
       <h1 className="mt-3 text-4xl font-semibold tracking-tight text-foreground">
         Purity, verified.

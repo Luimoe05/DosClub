@@ -13,7 +13,7 @@ export default function LoginPage() {
     <div className="mx-auto flex max-w-md flex-col px-6 py-20">
       <Frame className="p-8">
         <div className="flex flex-col items-center">
-          <LogoMark className="h-10 w-10" />
+          <LogoMark className="h-11 w-14" />
           <span className="label mt-5 text-muted">ACCOUNT</span>
           <h1 className="mt-2 text-2xl font-semibold tracking-tight text-foreground">
             Welcome back
@@ -33,7 +33,7 @@ export default function LoginPage() {
           />
           <button
             type="submit"
-            className="label w-full rounded-md bg-accent px-6 py-3 text-accent-contrast transition hover:bg-accent-bright"
+            className="label w-full rounded-md bg-foreground px-6 py-3 text-background transition hover:opacity-90"
           >
             SIGN IN
           </button>

@@ -15,7 +15,7 @@ export default function CheckoutPage() {
         </h1>
         <Link
           href="/products"
-          className="label mt-8 inline-flex items-center justify-center rounded-md bg-accent px-6 py-3 text-accent-contrast transition hover:bg-accent-bright"
+          className="label mt-8 inline-flex items-center justify-center rounded-md bg-foreground px-6 py-3 text-background transition hover:opacity-90"
         >
           SHOP CATALOG
         </Link>
@@ -56,7 +56,7 @@ export default function CheckoutPage() {
 
           <button
             type="submit"
-            className="label w-full rounded-md bg-accent px-6 py-3 text-accent-contrast transition hover:bg-accent-bright"
+            className="label w-full rounded-md bg-foreground px-6 py-3 text-background transition hover:opacity-90"
           >
             PLACE ORDER
           </button>

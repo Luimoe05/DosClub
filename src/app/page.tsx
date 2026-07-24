@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { getFeaturedProducts } from "@/lib/products";
 import { ProductCard } from "@/components/ProductCard";
-import { VialVisual } from "@/components/VialVisual";
 import { Frame } from "@/components/Frame";
 import { LiveClock } from "@/components/LiveClock";
 import { SectionHeader } from "@/components/SectionHeader";
+import { HeroCanvas } from "@/components/hero/HeroCanvas";
 
 export const revalidate = 60;
 
@@ -35,7 +35,7 @@ export default async function Home() {
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
                   href="/products"
-                  className="label inline-flex items-center justify-center rounded-md bg-accent px-6 py-3 text-accent-contrast transition hover:bg-accent-bright"
+                  className="label inline-flex items-center justify-center rounded-md bg-foreground px-6 py-3 text-background transition hover:opacity-90"
                 >
                   SHOP CATALOG
                 </Link>
@@ -48,10 +48,11 @@ export default async function Home() {
               </div>
             </div>
 
-            <div className="flex items-center justify-center">
-              <div className="flex aspect-[4/5] w-full max-w-xs items-center justify-center border border-border bg-background">
-                <VialVisual sizeMg={30} className="h-full w-full scale-110" />
-              </div>
+            <div className="relative min-h-[320px] md:min-h-[420px]">
+              <HeroCanvas />
+              <span className="label pointer-events-none absolute bottom-2 right-2 text-muted/70">
+                DRAG TO ROTATE
+              </span>
             </div>
           </div>
         </Frame>
@@ -111,7 +112,7 @@ export default async function Home() {
             </p>
             <Link
               href="/products"
-              className="label mt-2 inline-flex items-center justify-center rounded-md bg-accent px-6 py-3 text-accent-contrast transition hover:bg-accent-bright"
+              className="label mt-2 inline-flex items-center justify-center rounded-md bg-foreground px-6 py-3 text-background transition hover:opacity-90"
             >
               BROWSE PRODUCTS
             </Link>

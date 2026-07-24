@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getProductBySlug } from "@/lib/products";
 import { formatPrice } from "@/lib/format";
-import { VialVisual } from "@/components/VialVisual";
 import { Frame } from "@/components/Frame";
 import { AddToCartButton } from "@/components/cart/AddToCartButton";
 
@@ -27,8 +25,16 @@ export default async function ProductPage(props: PageProps<"/products/[slug]">) 
 
   const inStock = product.stock > 0;
 
+  const specs = [
+    { k: "Purity", v: product.purity ?? "—" },
+    { k: "Vial size", v: product.sizeMg != null ? `${product.sizeMg} mg` : "—" },
+    { k: "Form", v: product.form ?? "—" },
+    { k: "Category", v: product.categoryName ?? "—" },
+    { k: "Intended use", v: "Laboratory research" },
+  ];
+
   return (
-    <div className="mx-auto max-w-6xl px-6 py-10">
+    <div className="mx-auto max-w-5xl px-6 py-10">
       <nav className="label mb-8">
         <Link
           href="/products"
@@ -38,40 +44,19 @@ export default async function ProductPage(props: PageProps<"/products/[slug]">) 
         </Link>
       </nav>
 
-      <div className="grid gap-10 md:grid-cols-2">
-        {/* Media */}
-        <Frame className="glow-accent">
-          <div className="relative flex aspect-square items-center justify-center overflow-hidden">
-            {product.imageUrl ? (
-              <Image
-                src={product.imageUrl}
-                alt={product.name}
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover"
-                priority
-              />
-            ) : (
-              <VialVisual
-                sizeMg={product.sizeMg}
-                className="h-full w-full scale-110"
-              />
-            )}
-          </div>
-        </Frame>
-
+      <div className="grid gap-10 md:grid-cols-[1.15fr_0.85fr]">
         {/* Details */}
         <div className="flex flex-col">
           <span className="label flex items-center gap-2 text-muted">
             <span
               className={`h-1.5 w-1.5 rounded-full ${inStock ? "bg-ok" : "bg-muted"}`}
             />
-            {product.categoryName ?? "RESEARCH COMPOUND"}
+            {(product.categoryName ?? "RESEARCH COMPOUND").toUpperCase()}
             {" · "}
             {inStock ? "IN STOCK" : "SOLD OUT"}
           </span>
 
-          <h1 className="mt-4 text-4xl font-semibold tracking-tight text-foreground">
+          <h1 className="mt-4 text-4xl font-semibold tracking-tight text-foreground md:text-5xl">
             {product.name}
           </h1>
 
@@ -79,16 +64,20 @@ export default async function ProductPage(props: PageProps<"/products/[slug]">) 
             {formatPrice(product.priceCents)}
           </div>
 
-          <p className="mt-6 leading-relaxed text-muted">{product.description}</p>
+          <p className="mt-6 max-w-prose leading-relaxed text-muted">
+            {product.description}
+          </p>
 
-          {/* Spec pills */}
           <div className="mt-6 flex flex-wrap gap-2">
-            {product.purity && <span className="pill">PURITY {product.purity}</span>}
+            {product.purity && (
+              <span className="pill">PURITY {product.purity}</span>
+            )}
             {product.sizeMg != null && (
               <span className="pill">{product.sizeMg}MG VIAL</span>
             )}
-            {product.form && <span className="pill">{product.form.toUpperCase()}</span>}
-            <span className="pill">LABORATORY RESEARCH</span>
+            {product.form && (
+              <span className="pill">{product.form.toUpperCase()}</span>
+            )}
           </div>
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
@@ -115,6 +104,26 @@ export default async function ProductPage(props: PageProps<"/products/[slug]">) 
             <span className="text-accent">not for human consumption</span>. By
             purchasing you confirm you are a qualified researcher.
           </div>
+        </div>
+
+        {/* Spec sheet */}
+        <div className="md:pt-11">
+          <Frame>
+            <div className="border-b border-border px-5 py-3">
+              <span className="label text-muted">SPECIFICATION</span>
+            </div>
+            <dl className="divide-y divide-border">
+              {specs.map((s) => (
+                <div
+                  key={s.k}
+                  className="flex items-center justify-between gap-4 px-5 py-3.5"
+                >
+                  <dt className="label text-muted">{s.k.toUpperCase()}</dt>
+                  <dd className="text-sm text-foreground">{s.v}</dd>
+                </div>
+              ))}
+            </dl>
+          </Frame>
         </div>
       </div>
     </div>

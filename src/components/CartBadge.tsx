@@ -28,7 +28,7 @@ export function CartBadge() {
       </svg>
       <span className="hidden sm:inline">CART</span>
       {count > 0 && (
-        <span className="ml-0.5 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-semibold text-accent-contrast">
+        <span className="ml-0.5 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-foreground px-1 text-[10px] font-semibold text-background">
           {count}
         </span>
       )}

@@ -35,7 +35,7 @@ export default function ContactPage() {
         </div>
         <button
           type="submit"
-          className="label inline-flex items-center justify-center rounded-md bg-accent px-6 py-3 text-accent-contrast transition hover:bg-accent-bright"
+          className="label inline-flex items-center justify-center rounded-md bg-foreground px-6 py-3 text-background transition hover:opacity-90"
         >
           SEND MESSAGE
         </button>

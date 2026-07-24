@@ -23,6 +23,10 @@ export const metadata: Metadata = {
   },
   description:
     "High-purity research peptides and compounds for laboratory use. Not for human consumption.",
+  icons: {
+    icon: "/dos-club-logo.jpeg",
+    apple: "/dos-club-logo.jpeg",
+  },
 };
 
 export default function RootLayout({
