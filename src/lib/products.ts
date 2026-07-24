@@ -1,16 +1,8 @@
 import { prisma } from "@/lib/prisma";
+import { dbConfigured } from "@/lib/db-status";
 import { sampleProducts, type StoreProduct } from "@/lib/sample-products";
 
 export type { StoreProduct };
-
-/**
- * Whether a live database is configured. When false (or when a query fails)
- * the storefront falls back to the sample catalog so it always renders.
- */
-function dbConfigured(): boolean {
-  const url = process.env.DATABASE_URL;
-  return Boolean(url) && !url!.includes("user:password@host");
-}
 
 type PrismaProduct = {
   id: string;

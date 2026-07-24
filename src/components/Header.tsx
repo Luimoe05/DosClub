@@ -26,12 +26,6 @@ export function Header() {
           ))}
         </nav>
         <div className="flex items-center gap-2">
-          <Link
-            href="/login"
-            className="label hidden text-muted transition hover:text-foreground sm:inline"
-          >
-            SIGN IN
-          </Link>
           <CartBadge />
           <ThemeToggle />
         </div>
